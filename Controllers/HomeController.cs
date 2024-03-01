@@ -343,6 +343,7 @@ namespace PoliziaMunicipale.Controllers
 
         public IActionResult Edit(Anagrafica utente)
         {
+            
             try
             {
                 DB.conn.Open();
@@ -375,7 +376,7 @@ namespace PoliziaMunicipale.Controllers
                 DB.conn.Close();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Anagrafica", new {id = utente.IDAnagrafica});
 
     }
 
