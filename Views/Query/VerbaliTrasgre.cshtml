@@ -10,13 +10,14 @@
 }
 else
 {
-    <table class="table table-primary table-hover">
+    <table class="table table-primary table-hover text-center">
         <thead>
             <tr>
                 <th scope="col">Id Anagrafica</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Cognome</th>
                 <th scope="col">Totale Verbali</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,9 @@ else
                     <td scope="col">@multa.Nome</td>
                     <td scope="col">@multa.Cognome</td>
                     <td scope="col">@multa.Totale</td>
+                    <td scope="col">
+                        <a class="btn btn-outline-primary" asp-controller="Home" asp-action="Anagrafica" asp-route-id="@multa.IDAnagrafica">Trasgressore</a>
+                    </td>
                 </tr>
             }
         </tbody>

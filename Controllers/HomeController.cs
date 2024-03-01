@@ -239,31 +239,135 @@ namespace PoliziaMunicipale.Controllers
         public IActionResult AddAnagrafica(Anagrafica utente)
         {
             var error = true;
+            int lastInsertedId = 0;
+
             try
             {
+
                 DB.conn.Open();
+
                 var cmd = new SqlCommand(@"INSERT INTO Anagrafica 
-                                           (Cognome, Nome, Indirizzo, Citta, CAP, Cod_Fisc)
-                                           VALUES (@cognome, @nome, @indirizzo, @citta, @cap, @cod_fisc)", DB.conn);
+                                                     (Cognome, Nome, Indirizzo, Citta, CAP, Cod_Fisc)
+                                                     VALUES (@cognome, @nome, @indirizzo, @citta, @cap, @cod_fisc);
+                                                     SELECT SCOPE_IDENTITY()", DB.conn);
+
                 cmd.Parameters.AddWithValue("@cognome", utente.Cognome);
                 cmd.Parameters.AddWithValue("@nome", utente.Nome);
                 cmd.Parameters.AddWithValue("@indirizzo", utente.Indirizzo);
                 cmd.Parameters.AddWithValue("@citta", utente.Citta);
-                cmd.Parameters.AddWithValue("@cap", utente.CAP );
+                cmd.Parameters.AddWithValue("@cap", utente.CAP);
                 cmd.Parameters.AddWithValue("@cod_fisc", utente.Cod_Fisc);
-                
 
-                var nRows = cmd.ExecuteNonQuery();
 
-                if (nRows > 0)
+                var identity = cmd.ExecuteScalar();
+
+                if (identity != null)
                 {
+                    lastInsertedId = Convert.ToInt32(identity);
                     error = false;
                 }
+
 
             }
             catch (Exception ex)
             {
-                error = true;
+
+                return View("Error");
+            }
+            finally
+            {
+                DB.conn.Close();
+            }
+
+
+            if (!error)
+            {
+                TempData["MessageSuccess"] = $"L'utente {utente.Nome} {utente.Cognome} è stato aggiunto in anagrafica.";
+                return RedirectToAction("Anagrafica", new { id = lastInsertedId });
+            }
+            else
+            {
+                TempData["MessageError"] = $"Errore durante il caricamento nella base dati.";
+                return RedirectToAction("Index");
+            }
+
+
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            Anagrafica anagrafica = null;
+
+            try
+            {
+                DB.conn.Open();
+
+                var cmd = new SqlCommand("SELECT * FROM Anagrafica WHERE IDAnagrafica = @id", DB.conn);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.Read()) 
+                {
+                    anagrafica = new Anagrafica
+                    {
+                        IDAnagrafica = (int)reader["IDAnagrafica"],
+                        Cognome = reader["Cognome"].ToString(),
+                        Nome = reader["Nome"].ToString(),
+                        Indirizzo = reader["Indirizzo"].ToString(),
+                        Citta = reader["Citta"].ToString(),
+                        CAP = reader["CAP"].ToString(),
+                        Cod_Fisc = reader["Cod_Fisc"].ToString()
+                    };
+
+                     
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return RedirectToAction("Error", "Home");
+            }
+            finally
+            {
+                DB.conn.Close();
+            }
+
+
+
+            return View(anagrafica);
+        }
+
+        [HttpPost]
+
+        public IActionResult Edit(Anagrafica utente)
+        {
+            try
+            {
+                DB.conn.Open();
+
+                var cmd = new SqlCommand(@"UPDATE Anagrafica 
+                           SET Cognome = @cognome, 
+                               Nome = @nome, 
+                               Indirizzo = @indirizzo, 
+                               Citta = @citta, 
+                               CAP = @cap, 
+                               Cod_Fisc = @cod_fisc
+                           WHERE IDAnagrafica = @id", DB.conn);
+
+                cmd.Parameters.AddWithValue("@cognome", utente.Cognome);
+                cmd.Parameters.AddWithValue("@nome", utente.Nome);
+                cmd.Parameters.AddWithValue("@indirizzo", utente.Indirizzo);
+                cmd.Parameters.AddWithValue("@citta", utente.Citta);
+                cmd.Parameters.AddWithValue("@cap", utente.CAP);
+                cmd.Parameters.AddWithValue("@cod_fisc", utente.Cod_Fisc);
+                cmd.Parameters.AddWithValue("@id", utente.IDAnagrafica);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
                 return View(ex.Message);
             }
             finally
@@ -271,17 +375,11 @@ namespace PoliziaMunicipale.Controllers
                 DB.conn.Close();
             }
 
-            if (!error)
-            {
-                TempData["MessageSuccess"] = $"L'utente {utente.Nome} {utente.Cognome} è stato corettamente inserito in anagrafica";
-            }
-            else
-            {
-                TempData["MessageError"] = $"L'utente {utente.Nome} {utente.Cognome} c'è stato un errore durante l'aggiornameno del DataBase";
-            }
-
             return RedirectToAction("Index");
-        }
+
+    }
+
+
 
         public IActionResult Privacy()
         {
@@ -294,4 +392,7 @@ namespace PoliziaMunicipale.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
+
+
+    
 }

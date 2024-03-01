@@ -95,11 +95,11 @@ namespace PoliziaMunicipale.Controllers
             try
             {
                 DB.conn.Open();
-                var cmd = new SqlCommand(@"SELECT a.Cognome,a.Nome, v.IndirizzoViolazione, v.DataViolazione,  v.Importo, v.DecurtamentoPunti
-                                            FROM Verbale as v
-                                            join dbo.Anagrafica as a on a.IDAnagrafica = v.IDAnagrafica 
-                                            WHERE v.DecurtamentoPunti > 10
-                                            ", DB.conn);
+                var cmd = new SqlCommand(@"SELECT a.IDAnagrafica, a.Cognome, a.Nome, v.IndirizzoViolazione, v.DataViolazione, v.Importo, v.DecurtamentoPunti
+                            FROM Verbale as v
+                            JOIN dbo.Anagrafica as a ON a.IDAnagrafica = v.IDAnagrafica 
+                            WHERE v.Importo > 400", DB.conn);
+                
                 var reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
@@ -107,6 +107,7 @@ namespace PoliziaMunicipale.Controllers
                     {
                         var verbale = new PuntiSaldo()
                         {
+                            IDAnagrafica = (int)reader["IDAnagrafica"],
                             Cognome = reader["Cognome"].ToString(),
                             Nome = reader["Nome"].ToString(),
                             DataViolazione = (DateTime)reader["DataViolazione"],
@@ -140,11 +141,11 @@ namespace PoliziaMunicipale.Controllers
             try
             {
                 DB.conn.Open();
-                var cmd = new SqlCommand(@"SELECT a.Cognome,a.Nome, v.IndirizzoViolazione, v.DataViolazione,  v.Importo, v.DecurtamentoPunti
-                                            FROM Verbale as v
-                                            join dbo.Anagrafica as a on a.IDAnagrafica = v.IDAnagrafica 
-                                            WHERE v.Importo > 400
-                                            ", DB.conn);
+                var cmd = new SqlCommand(@"SELECT a.IDAnagrafica, a.Cognome, a.Nome, v.IndirizzoViolazione, v.DataViolazione, v.Importo, v.DecurtamentoPunti
+                            FROM Verbale as v
+                            JOIN dbo.Anagrafica as a ON a.IDAnagrafica = v.IDAnagrafica 
+                            WHERE v.Importo > 400", DB.conn);
+
                 var reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
@@ -152,6 +153,7 @@ namespace PoliziaMunicipale.Controllers
                     {
                         var verbale = new PuntiSaldo()
                         {
+                            IDAnagrafica = (int)reader["IDAnagrafica"],
                             Cognome = reader["Cognome"].ToString(),
                             Nome = reader["Nome"].ToString(),
                             DataViolazione = (DateTime)reader["DataViolazione"],
