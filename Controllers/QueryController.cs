@@ -177,6 +177,7 @@ namespace PoliziaMunicipale.Controllers
             }
 
             return View(verbali);
+
         }
     }
     
