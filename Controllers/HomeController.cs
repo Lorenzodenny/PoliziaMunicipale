@@ -69,7 +69,7 @@ namespace PoliziaMunicipale.Controllers
                 try
                 {
                     DB.conn.Open();
-                    var cmd = new SqlCommand(@"SELECT * FROM Anagrafica WHERE Id = @id", DB.conn);
+                    var cmd = new SqlCommand(@"SELECT * FROM Anagrafica WHERE IDAnagrafica = @id", DB.conn);
                     cmd.Parameters.AddWithValue("@id", id);
 
                     var reader = cmd.ExecuteReader();

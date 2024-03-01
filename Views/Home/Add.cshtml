@@ -1,5 +1,4 @@
-﻿ADD
-
+﻿
 @{
     ViewData["Title"] = "Aggiungi Verbale";
 }
@@ -11,23 +10,23 @@
 <form class="row g-3" asp-controller="Home" asp-action="Add" method="post">
     <div class="col-md-6">
         <label asp-for="@Model.DataViolazione" class="form-label">Data Violazione</label>
-        <input type="date" class="form-control" asp-for="@Model.DataViolazione">
+        <input type="date" class="form-control" asp-for="@Model.DataViolazione" required>
     </div>
     <div class="col-md-6">
         <label asp-for="@Model.DataTrascrizioneVerbale" class="form-label">Data Trascrizione</label>
-        <input type="date" class="form-control" asp-for="@Model.DataTrascrizioneVerbale">
+        <input type="date" class="form-control" asp-for="@Model.DataTrascrizioneVerbale" required>
     </div>
     <div class="col-12">
         <label asp-for="@Model.IndirizzoViolazione" class="form-label">Indirizzo Violazione</label>
-        <input type="text" class="form-control" asp-for="@Model.IndirizzoViolazione" placeholder="1234 Main St">
+        <input type="text" class="form-control" asp-for="@Model.IndirizzoViolazione" placeholder="1234 Main St" required>
     </div>
     <div class="col-12">
         <label asp-for="@Model.Nominativo_Agente" class="form-label">Nominativo Agente</label>
-        <input type="text" class="form-control" asp-for="@Model.Nominativo_Agente">
+        <input type="text" class="form-control" asp-for="@Model.Nominativo_Agente" required>
     </div>
     <div class="col-md-6">
         <label asp-for="@Model.Importo" class="form-label">Importo</label>
-        <input type="number" class="form-control" asp-for="@Model.Importo">
+        <input type="number" class="form-control" asp-for="@Model.Importo" required>
     </div>
     <div class="col-md-6">
         <label asp-for="@Model.DecurtamentoPunti" class="form-label">Decurtamento Punti</label>

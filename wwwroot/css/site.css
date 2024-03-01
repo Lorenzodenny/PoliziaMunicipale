@@ -20,3 +20,20 @@ html {
 body {
   margin-bottom: 60px;
 }
+.logo {
+    width: 5%;
+    margin-left:2% ;
+}
+
+.logo img{
+    width: 100%;
+}
+
+.navbarBackground {
+    background-color: #17324D;
+}
+
+.titolo{
+    font-weight: bold ;
+    margin-left: 2%;
+}

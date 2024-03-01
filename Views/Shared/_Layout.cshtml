@@ -10,43 +10,51 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PoliziaMunicipale</a>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbarBackground border-bottom box-shadow mb-3 ">
+            <div class="container-fluid bg-primary-subtle">
+                <div class="logo">
+                    <img src="https://bussola.s3-eu-west-1.amazonaws.com/99464/polizia%20locale.png" />
+                </div>
+                <a class="navbar-brand text-white titolo" asp-area="" asp-controller="Home" asp-action="Index">PoliziaMunicipale™</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Aggiungi
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Home" asp-action="Add">Crea un nuova Multa</a></li>
-                                <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Home" asp-action="AddAnagrafica">Aggiungi Trasgressore</a></li>
+                                <li><a class="dropdown-item text-primary-emphasis" asp-area="" asp-controller="Home" asp-action="Add">Aggiungi Contravvenzione</a></li>
+                                <li><a class="dropdown-item text-primary-emphasis" asp-area="" asp-controller="Home" asp-action="AddAnagrafica">Aggiungi Trasgressore</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Verbali
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Query" asp-action="VerbaliTrasgre">Verbali - Trasgressioni</a></li>
-                                <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Query" asp-action="TrasgrePunti">Punti - Trasgressioni</a></li>
-                                <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Query" asp-action="Punti">Punti - Maggiori di dieci</a></li>
-                                <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Query" asp-action="FiltroImporto">Verbali maggiori di 400 euro</a></li>
+                                <li><a class="dropdown-item text-primary-emphasis" asp-area="" asp-controller="Query" asp-action="VerbaliTrasgre">Verbali - Trasgressioni</a></li>
+                                <li><a class="dropdown-item text-primary-emphasis" asp-area="" asp-controller="Query" asp-action="TrasgrePunti">Punti - Trasgressioni</a></li>
+                                <li><a class="dropdown-item text-primary-emphasis" asp-area="" asp-controller="Query" asp-action="Punti">Punti - Maggiori di dieci</a></li>
+                                <li><a class="dropdown-item text-primary-emphasis" asp-area="" asp-controller="Query" asp-action="FiltroImporto">Verbali - maggiori di 400 euro</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
